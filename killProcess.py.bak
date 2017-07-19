@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+#-*-encoding:utf-8-*-
+#usage: ./scriptprogram processname
+import os,sys
+processLine = os.popen("ps aux | grep %s" % sys.argv[1])
+line = processLine.readline()
+while line != '':
+    split1 = line.split()
+    split2 = split1[11].split('/')
+    if sys.argv[1] in split2 :
+        ret = os.system("kill -9 %s" % split1[1])
+        print (ret)
+        if not ret:
+            print ("killed %s,Process name:%s" % (split1[1], sys.argv[1]) )
+    line = processLine.readline()
